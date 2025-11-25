@@ -66,7 +66,7 @@ const App: React.FC = () => {
       <nav className="w-full p-4 border-b border-green-900 flex justify-between items-center bg-black/80 backdrop-blur-sm z-10 sticky top-0">
         <div className="flex items-center gap-2 text-xl font-bold tracking-tighter cursor-pointer" onClick={() => setGameState(GameState.MENU)}>
           <Terminal size={24} />
-          <span className="hidden md:inline">OTIMIZADOR LÓGICO: ANGRA IV</span>
+          <span className="hidden md:inline">SALVE O BRASIL</span>
           <span className="md:hidden">ANGRA IV</span>
         </div>
         <div className="flex gap-4 text-xs uppercase tracking-widest text-green-700">
