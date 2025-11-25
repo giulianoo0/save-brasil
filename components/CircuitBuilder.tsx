@@ -34,8 +34,8 @@ const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpression
         id: OUTPUT_ID,
         type: 'OUTPUT',
         label: 'SAÍDA',
-        x: 700,
-        y: 250,
+        x: 0,
+        y: 0,
         inputs: []
       }
     ];
@@ -45,6 +45,19 @@ const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpression
     setSelectedNodeId(null);
     onExpressionChange('');
   }, [variables]); // Reset when variables/level changes
+
+  // Center the output node after container is measured
+  useEffect(() => {
+    if (containerRef.current && nodes.length > 0) {
+      const container = containerRef.current;
+      const centerX = Math.max(0, container.clientWidth / 2 - 40); // -40 for half node width
+      const centerY = Math.max(0, container.clientHeight / 2 - 20); // -20 for half node height
+      
+      setNodes(prev => prev.map(n => 
+        n.id === OUTPUT_ID ? { ...n, x: centerX, y: centerY } : n
+      ));
+    }
+  }, []);
 
   // Build Expression Logic
   useEffect(() => {
@@ -213,6 +226,7 @@ const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpression
     setMousePos({ x, y });
 
     if (draggingNodeId) {
+      e.preventDefault();
       setNodes(prev => prev.map(n => {
         if (n.id === draggingNodeId) {
           return {
@@ -379,6 +393,7 @@ const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpression
       <div 
         ref={containerRef}
         className="relative flex-1 bg-[#050505] overflow-hidden cursor-crosshair"
+        style={{ touchAction: 'none' }}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
       >

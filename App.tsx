@@ -63,7 +63,7 @@ const App: React.FC = () => {
     <div className="min-h-screen w-full flex flex-col bg-[#050505] text-[#00ff41] font-mono selection:bg-[#00ff41] selection:text-black">
       
       {/* Navbar */}
-      <nav className="w-full p-4 border-b border-green-900 flex justify-between items-center bg-black/80 backdrop-blur-sm z-10 sticky top-0">
+      <nav className="w-full p-4 border-b border-green-900 flex justify-between items-center bg-black backdrop-blur-sm z-50 sticky top-0">
         <div className="flex items-center gap-2 text-xl font-bold tracking-tighter cursor-pointer" onClick={() => setGameState(GameState.MENU)}>
           <Terminal size={24} />
           <span className="hidden md:inline">SALVE O BRASIL</span>
