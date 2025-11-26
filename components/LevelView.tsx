@@ -19,6 +19,7 @@ const LevelView: React.FC<LevelViewProps> = ({ level, onComplete, onBack }) => {
   // Timer State
   const [timeLeft, setTimeLeft] = useState(level.timeLimit);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [resetCircuit, setResetCircuit] = useState(false);
   const timerRef = useRef<number | null>(null);
 
   // Reset state when level changes
@@ -27,6 +28,7 @@ const LevelView: React.FC<LevelViewProps> = ({ level, onComplete, onBack }) => {
     setResult(null);
     setTimeLeft(level.timeLimit);
     setIsGameOver(false);
+    setResetCircuit(false);
   }, [level]);
 
   // Timer Logic
@@ -41,6 +43,7 @@ const LevelView: React.FC<LevelViewProps> = ({ level, onComplete, onBack }) => {
             if (prev <= 1) {
                 if (timerRef.current) clearInterval(timerRef.current);
                 setIsGameOver(true);
+                setResetCircuit(true); // Reset circuit nodes when time runs out
                 return 0;
             }
             return prev - 1;
@@ -219,6 +222,7 @@ const LevelView: React.FC<LevelViewProps> = ({ level, onComplete, onBack }) => {
                  <CircuitBuilder 
                     variables={level.variables} 
                     onExpressionChange={setExpressionInput}
+                    resetTrigger={resetCircuit}
                 />
             </div>
         </div>

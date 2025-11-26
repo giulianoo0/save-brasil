@@ -71,8 +71,8 @@ const App: React.FC = () => {
         </div>
         <div className="flex gap-4 text-xs uppercase tracking-widest text-green-700">
           <div className="flex items-center gap-1">
-            <span className={`w-2 h-2 rounded-full ${gameState === GameState.PLAYING ? 'bg-green-500 animate-pulse' : 'bg-green-900'}`}></span>
-            {gameState === GameState.PLAYING ? 'SISTEMA CRÍTICO' : 'STANDBY'}
+            <span className={`w-2 h-2 rounded-full ${gameState === GameState.PLAYING ? 'bg-green-500 animate-pulse' : 'bg-red-800 animate-pulse'}`}></span>
+            {gameState === GameState.PLAYING ? 'SISTEMA CRÍTICO' : 'SISTEMA INVADIDO'}
           </div>
           {currentMission && gameState !== GameState.MENU && (
               <div className="text-green-500 font-bold border-l border-green-900 pl-4">
@@ -121,7 +121,7 @@ const App: React.FC = () => {
               </div>
               
               <div className="text-xs text-green-800 mt-12 font-mono">
-                MINISTÉRIO DE MINAS E ENERGIA - PROTOCOLO 2084
+                MINISTÉRIO DA JUSTIÇA E SEGURANÇA PÚBLICA - PROTOCOLO 67
               </div>
             </div>
           )}
@@ -151,16 +151,30 @@ const App: React.FC = () => {
           )}
 
           {gameState === GameState.VICTORY && (
-            <div className="text-center space-y-8 animate-fade-in bg-black/90 p-12 border border-green-500 rounded shadow-[0_0_50px_rgba(0,255,65,0.2)]">
-              <CheckCircle size={64} className="mx-auto text-green-500" />
-              <h2 className="text-4xl font-bold text-green-400">ANGRA IV ESTABILIZADA</h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                Todos os subsistemas reportam eficiência de 100%. O resfriamento foi restaurado. 
-                A radiação está contida. O Brasil está salvo, graças à sua lógica impecável.
-              </p>
+            <div className="text-center space-y-8 animate-fade-in bg-gradient-to-b from-black to-green-950/30 p-12 border-2 border-green-500 rounded shadow-[0_0_80px_rgba(34,197,94,0.4)]">
+              <div className="space-y-4">
+                <CheckCircle size={80} className="mx-auto text-green-400 animate-bounce" />
+                <h2 className="text-5xl md:text-6xl font-bold text-green-400 shadow-green-glow tracking-tighter">
+                  MISSÃO CUMPRIDA
+                </h2>
+              </div>
+              
+              <div className="space-y-4 text-lg">
+                <p className="text-green-300 text-xl font-bold">VOCÊ SALVOU O BRASIL!</p>
+                <p className="text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                  Todos os subsistemas de Angra IV reportam eficiência de 100% e o vírus foi destruido! O resfriamento foi restaurado e
+                  a radiação está contida. O hemisfério sul foi salvo graças a você!.
+                </p>
+                <div className="pt-4 border-t border-green-900">
+                  <p className="text-green-500 font-mono text-sm uppercase tracking-widest">
+                    SISTEMA NUCLEAR ESTABILIZADO - CÓDIGO 61
+                  </p>
+                </div>
+              </div>
+              
               <button 
                 onClick={() => setGameState(GameState.MENU)}
-                className="px-8 py-3 bg-green-900/40 hover:bg-green-500 hover:text-black border border-green-500 text-green-400 font-bold rounded uppercase tracking-wider transition-all"
+                className="px-8 py-4 bg-green-900/40 hover:bg-green-500 hover:text-black border border-green-500 text-green-400 font-bold rounded uppercase tracking-wider transition-all transform hover:scale-105"
               >
                 Voltar ao Menu Principal
               </button>

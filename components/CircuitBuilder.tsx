@@ -6,12 +6,13 @@ import { Trash2, GripVertical, Play, XCircle } from 'lucide-react';
 interface CircuitBuilderProps {
   variables: string[]; // P, Q, R...
   onExpressionChange: (expr: string) => void;
+  resetTrigger?: boolean; // When true, resets the circuit nodes
 }
 
 const GRID_SIZE = 20;
 const OUTPUT_ID = 'output_main';
 
-const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpressionChange }) => {
+const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpressionChange, resetTrigger }) => {
   const [nodes, setNodes] = useState<CircuitNode[]>([]);
   const [connections, setConnections] = useState<Connection[]>([]);
   
@@ -45,6 +46,29 @@ const CircuitBuilder: React.FC<CircuitBuilderProps> = ({ variables, onExpression
     setSelectedNodeId(null);
     onExpressionChange('');
   }, [variables]); // Reset when variables/level changes
+
+  // Reset nodes when resetTrigger changes
+  useEffect(() => {
+    if (resetTrigger) {
+      const initialNodes: CircuitNode[] = [
+        {
+          id: OUTPUT_ID,
+          type: 'OUTPUT',
+          label: 'SAÍDA',
+          x: 0,
+          y: 0,
+          inputs: []
+        }
+      ];
+
+      setNodes(initialNodes);
+      setConnections([]);
+      setSelectedNodeId(null);
+      setWiringSourceId(null);
+      setDraggingNodeId(null);
+      onExpressionChange('');
+    }
+  }, [resetTrigger, onExpressionChange]);
 
   // Center the output node after container is measured
   useEffect(() => {
